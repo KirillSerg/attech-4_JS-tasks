@@ -98,3 +98,28 @@ console.log(countSymbols("Jeremy", "E")) // 2
 console.log(countSymbols("Antony", "n")) // 2
 console.log(countSymbols("Antony Smith", "s")) // 1
 */
+
+/*Task-l1#4
+Add optional third argument, that will control enable/disable case sensitive search.
+*/
+
+/*
+function countSymbols(str, Symb, x) {
+  let counter = 0;
+  for (let i = 0; i < str.length; i++) {
+    if (x){  
+      if (str[i].toLowerCase() === Symb.toLowerCase()) {
+        ++counter;
+      }
+    } else {
+      if (str[i] === Symb) {
+        ++counter;
+      }
+    }
+  }
+  return counter;
+}
+console.log(countSymbols("Antony Smith", "s", true)) // 1
+console.log(countSymbols("Antony Smith", "s", false)) // 0
+console.log(countSymbols("Antony Smith", "s")) // 0
+*/
