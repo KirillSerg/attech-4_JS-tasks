@@ -80,3 +80,21 @@ console.log(countSymbols("Jeremy", "e")) // 2
 console.log(countSymbols("Antony", "n")) // 2
 console.log(countSymbols("Antony Smith", "s")) // 0 (because we looking for small "s", but in "Smith" we have big "S")
 */
+
+/*Task-l1#3
+Extend "countSymbols" to make search not case sensitive.
+*/
+/*
+function countSymbols(str, Symb) {
+  let counter = 0;
+    for (let i = 0; i < str.length; i++) {
+        if (str[i].toLowerCase() === Symb.toLowerCase()) {
+          ++counter;
+        }
+    }
+    return counter;
+}
+console.log(countSymbols("Jeremy", "E")) // 2
+console.log(countSymbols("Antony", "n")) // 2
+console.log(countSymbols("Antony Smith", "s")) // 1
+*/
