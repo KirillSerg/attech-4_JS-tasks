@@ -123,3 +123,43 @@ console.log(countSymbols("Antony Smith", "s", true)) // 1
 console.log(countSymbols("Antony Smith", "s", false)) // 0
 console.log(countSymbols("Antony Smith", "s")) // 0
 */
+
+/*Task-l1AntiSpy#2
+Extend "antiSpy" function with optional second argument, that will be a string used to hide data. If argument not provided, should be used "HIDDEN_DATA" string.
+*/
+/**/
+const text = "If you agree with that, just let me know to obama@mail.us or newpower@gmail.com and I'll reach out as soon as possible."
+
+function antiSpy(txt, changeTo = 'HIDDEN_DATA') {
+	let resultStr = '';
+	let startPositionWord = 0;
+  let currentWord = '';
+  
+	// шагаем по символам ...
+  next:
+	for (let i = 0; i < txt.length; i++) {
+		// ... если встречаем "пробел" или конец txt, то ...
+		if (txt[i] == ' ' || i == txt.length - 1) {
+			// ... шагаем по символам от начала слова до позиции с пробелом и ... 
+			for (let j = startPositionWord; j < i; j++) {
+			
+				currentWord = currentWord + txt[j];   // заранее записываем каждый символ проверяемого слова, чтобы при отсутствии "@" добавить все проверенное слово к результирующей строке
+				
+				// ... проверяем на наличие символа "@"
+				if (txt[j] == '@') {
+					resultStr = resultStr + ` ${changeTo}`
+					currentWord = '';
+					startPositionWord = i
+					continue next;
+				}
+			}
+			resultStr = resultStr + currentWord;
+			currentWord = '';
+			startPositionWord = i;
+		}
+	}
+console.log(resultStr)
+return resultStr
+}
+
+antiSpy(text, '{XXXXXXX}')
