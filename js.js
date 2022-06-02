@@ -127,7 +127,7 @@ console.log(countSymbols("Antony Smith", "s")) // 0
 /*Task-l1AntiSpy#2
 Extend "antiSpy" function with optional second argument, that will be a string used to hide data. If argument not provided, should be used "HIDDEN_DATA" string.
 */
-/**/
+/*
 const text = "If you agree with that, just let me know to obama@mail.us or newpower@gmail.com and I'll reach out as soon as possible."
 
 function antiSpy(txt, changeTo = 'HIDDEN_DATA') {
@@ -163,3 +163,88 @@ return resultStr
 }
 
 antiSpy(text, '{XXXXXXX}')
+*/
+
+
+
+
+
+
+/*Task-l2#1
+Create a function postBuilder that will receive two arguments: object with values, and text. This function should help to fill text in templates. Logic should calculate the WINNER based on score. If game results is draft - WINNER value should be "both teams".
+*/
+/*
+const template = "%TEAM_A% vs %TEAM_B% game score is %SCORE%. Fans of %WINNER% already started celebrating on the streets of the %GAME_CITY%, %GAME_COUNTRY%."
+
+function postBuilder(inTxt, objResult) {
+  
+  const x = objResult.teamAGameScore - objResult.teamBGameScore
+
+  // определили победителя
+  let winer;
+
+  (x == 0) ? winer = 'both teams' :
+  (x > 0) ? winer = `${objResult.teamA}` :
+  winer = `${objResult.teamB}`;
+  //console.log(winer)
+
+  // фун-я для замены слов в шаблоне (для map)
+  function replaceWord(item) {
+    if (item == "TEAM_A") {
+      return item = objResult.teamA
+    } else if (item == "TEAM_B") {
+      return item = objResult.teamB
+    } else if (item == "SCORE") {
+      return item = `${objResult.teamAGameScore} : ${objResult.teamBGameScore}`
+    } else if (item == "WINNER") {
+      return item = winer
+    } else if (item == "GAME_CITY") {
+      return item = objResult.city
+    } else if (item == "GAME_COUNTRY") {
+      return item = objResult.country
+    } else {
+      return item
+    }
+  }
+
+  let outTxt = inTxt.split('%')
+    .map(replaceWord)
+    .join('')
+
+  
+  return outTxt
+}
+
+console.log(
+  postBuilder(template, {
+    teamAGameScore: 2,
+    teamBGameScore: 0,
+    teamA: "Barcelona FC",
+    teamB: "Inter Milan",
+    city: "Milan",
+    country: "Italy",
+  })
+); // "Barcelona FC vs Inter Milan game score is 2:0. Fans of Barcelona FC are already started celebrating on the streets of the Milan, Italy."
+console.log(
+  postBuilder(template, {
+    teamAGameScore: 0,
+    teamBGameScore: 3,
+    teamA: "Barcelona FC",
+    teamB: "Inter Milan",
+    city: "Milan",
+    country: "Italy",
+  })
+); // "Barcelona FC vs Inter Milan game score is 0:3. Fans of Inter Milan are already started celebrating on the streets of the Milan, Italy."
+console.log(
+  postBuilder(template, {
+    teamAGameScore: 0,
+    teamBGameScore: 0,
+    teamA: "Barcelona FC",
+    teamB: "Inter Milan",
+    city: "Milan",
+    country: "Italy",
+  })
+); // "Barcelona FC vs Inter Milan game score is 0:0. Fans of both teams are already started celebrating on the streets of the Milan, Italy."
+*/
+
+
