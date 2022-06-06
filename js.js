@@ -248,3 +248,71 @@ console.log(
 */
 
 
+
+
+/*Task-l2-Sorting#1
+Create a function sortByAge that will sort array of object based on "age" key.
+*/
+
+/*
+const students = [
+  { name: "Alex", age: 27 },
+  { name: "Deny", age: 25 },
+  { name: "Max", age: 20 },
+];
+const teachers = [
+  { name: "Tommy", age: 33, experience: 10, skillsId: 1 },
+  { name: "Lora", age: 44, experience: 12, skillsId: 2 },
+  { name: "Rafat", age: 35, experience: 3, skillsId: 3 },
+];
+
+
+function sortByAge (arr) {
+
+	const sortedNames = [];
+	let copyArr = arr.slice();      //делаем клон, чтобы не ломать исходник
+  
+	copyArr.sort((a, b) => a.age > b.age ? 1 : -1)   // сортируем "на месте". Это все еще массив объектов
+  .forEach(keys => sortedNames.push(keys.name))     // вытягиваем свойство name -> из каждого объекта -> каждого эл. массива и тулим в отдельный итоговый массив имен
+ 
+  return sortedNames.join(', ') // выводим преобразованный в строку массив
+}
+
+console.log(sortByAge(students)); // order: Max, Deny, Alex
+console.log(sortByAge(teachers)); // order: Tommy, Rafat, Lora
+*/
+
+
+
+
+/*Task-l2-Sorting#2
+Create a function sortByAge that will sort array of object based on "age" key.
+*/
+
+/*
+const students = [
+  { name: "Alex", age: 27 },
+  { name: "Deny", age: 25 },
+  { name: "Max", age: 20 },
+];
+const teachers = [
+  { name: "Tommy", age: 33, experience: 10, skillsId: 1 },
+  { name: "Lora", age: 44, experience: 12, skillsId: 2 },
+  { name: "Rafat", age: 35, experience: 3, skillsId: 3 },
+];
+
+
+function sortBy (arr, sortBy) {
+
+	const sortedNames = [];
+	let copyArr = arr.slice();      //делаем клон, чтобы не ломать исходник
+  
+	copyArr.sort((a, b) => a[sortBy] > b[sortBy] ? 1 : -1)   // сортируем "на месте". Это все еще массив объектов
+  .forEach(keys => sortedNames.push(keys.name))     // вытягиваем свойство name -> из каждого объекта -> каждого эл. массива и тулим в отдельный итоговый массив имен
+ 
+  return sortedNames.join(', ') // выводим преобразованный в строку массив
+}
+
+console.log(sortBy(students, "age")); // order: Max, Deny, Alex
+console.log(sortBy(teachers, "experience")); // order: Rafat, Tommy, Lora
+*/
