@@ -250,6 +250,8 @@ console.log(
 
 
 
+
+
 /*Task-l2-Sorting#1
 Create a function sortByAge that will sort array of object based on "age" key.
 */
@@ -285,6 +287,8 @@ console.log(sortByAge(teachers)); // order: Tommy, Rafat, Lora
 
 
 
+
+
 /*Task-l2-Sorting#2
 Create a function sortByAge that will sort array of object based on "age" key.
 */
@@ -315,4 +319,50 @@ function sortBy (arr, sortBy) {
 
 console.log(sortBy(students, "age")); // order: Max, Deny, Alex
 console.log(sortBy(teachers, "experience")); // order: Rafat, Tommy, Lora
+*/
+
+
+
+
+
+
+/*Task-l2-Sorting#3
+Create a function sortBySkills that will sort by values from another array. Function should take two arguments, match skills data from one array to another using id, and sort teachers based on count of skills. Lora has "skillsId" equal 2, and it match with ["chemistry", "physics", "math", "english"], and it means, that she has 4 skills.
+*/
+
+/*
+const teachers = [
+  { name: "Tommy", age: 33, experience: 10, skillsId: 1 },
+  { name: "Lora", age: 44, experience: 12, skillsId: 2 },
+  { name: "Rafat", age: 35, experience: 3, skillsId: 3 },
+];
+
+const skillsInfo = [
+  {
+    id: 1,
+    items: ["math", "english"],
+  },
+  {
+    id: 2,
+    items: ["chemistry", "physics", "math", "english"],
+  },
+  {
+    id: 3,
+    items: ["chemistry"],
+  },
+];
+
+
+function sortBySkills(arrToSort, arrSortBy) {
+
+  const sortedNames = [];
+  const copyArrToSort = arrToSort.slice();      //делаем клон, чтобы не ломать исходник
+
+  copyArrToSort.sort((a, b) => arrSortBy.find(prop => prop.id == a.skillsId).items.length > arrSortBy.find(prop => prop.id == b.skillsId).items.length ? -1 : 1)
+  .forEach(keys => sortedNames.push(keys.name))
+ 
+  return sortedNames.join(', ')
+}
+
+console.log(sortBySkills(teachers, skillsInfo)); // order: Lora, Tommy, Rafat
 */
