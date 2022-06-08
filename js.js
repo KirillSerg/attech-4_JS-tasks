@@ -211,7 +211,6 @@ function postBuilder(inTxt, objResult) {
     .map(replaceWord)
     .join('')
 
-  
   return outTxt
 }
 
@@ -365,4 +364,78 @@ function sortBySkills(arrToSort, arrSortBy) {
 }
 
 console.log(sortBySkills(teachers, skillsInfo)); // order: Lora, Tommy, Rafat
+*/
+
+
+
+
+
+/*Task-l2#5-God-mode
+Create a constructor World that will have next keys and methods:
+
+planetName - string with planet name
+species - array with all supported species
+creatures - array of all created items
+changePlanetName(newName) - method that change "planetName"
+create(data) - method that create a new "creature" with provided data and push it to "creatures" list. If data contain a new "specie", that's not exist in "species", it should be added.
+countPopulation() - method that return object with all species as keys, and their count as values
+*/
+
+/*
+function World() {
+
+	this.changePlanetName = (planetName) => {
+  	this.planetName = planetName;
+  };
+  this.species = [];
+  this.creatures = [];
+  this.countPopulation = () => {
+  	const hashTable = {};
+    
+    this.species.forEach(specie => {
+    
+      const currentSpecielCount = hashTable[specie] || 0;
+      const specieCount = currentSpecielCount + 1;
+      
+      hashTable[specie] = specieCount;
+    })
+
+    return hashTable;
+  };
+  
+  this.create = (obj) => {
+  	this.creatures.push(obj);
+    this.species.push(obj.specie);
+  };
+  
+}
+
+
+const home = new World();
+
+home.changePlanetName("Earth");
+
+console.log(home.planetName); // Earth
+console.log(home.species); // []
+console.log(home.creatures); // []
+console.log(home.countPopulation()); // {}
+
+home.create({
+  name: "human",
+  specie: "homo sapiens",
+});
+
+home.create({
+  name: "penguin",
+  specie: "bird",
+});
+
+home.create({
+  name: "swan",
+  specie: "bird",
+});
+
+console.log(home.species); // ["homo sapiens", "bird"]
+console.log(home.creatures); // [{ name: "human", specie: "homo sapiens" }, { name: "penguin", ...
+console.log(home.countPopulation()); // { "homo sapiens": 1, bird: 2 }
 */
