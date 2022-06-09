@@ -439,3 +439,22 @@ console.log(home.species); // ["homo sapiens", "bird"]
 console.log(home.creatures); // [{ name: "human", specie: "homo sapiens" }, { name: "penguin", ...
 console.log(home.countPopulation()); // { "homo sapiens": 1, bird: 2 }
 */
+
+
+
+/*Task-l3-Pizzeria-#1
+Create pizzaCooking async function, that will receive two arguments: "pizzaName" - name of pizza and "ovenTime" number of milliseconds that need to bake a pizza. Function should wait for "ovenTime" milliseconds to resolve. Use only Promise API, without async/await syntax.
+*/
+
+/*
+function pizzaCooking(pizzaName, ovenTime) {
+  return new Promise(resolve => setTimeout(() => resolve(`${pizzaName} is done`), ovenTime));
+}
+
+pizzaCooking("margarita", 5400).then((message) => console.log(message)); // (should resolve in 5.4s) margarita is done
+pizzaCooking("diabola", 3200).then((message) => console.log(message)); // (should resolve in 3.2s) diabola is done
+
+//проверка времени асинхронности
+console.time('pizzaCooking');
+pizzaCooking("diabola", 3200).then(() => {console.timeEnd('pizzaCooking')})
+*/
