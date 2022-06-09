@@ -595,3 +595,33 @@ pizzaCooking("diabola", 3200).then(() => {console.timeEnd('pizzaCooking')})
 /*Task-l3-Pizzeria-#2
 Create idealKitchen async function, that will receive one argument with array of pizza orders, and using pizzaCooking function from previous step for baking pizzas from order. For this task you have unlimited ovens, that means infinite count of pizzas can be baked in parallel. The idealKitchen function should resolve when all pizzas is done, and should return array of messages "PIZZA_NAME is done". Use only Promise API, without async/await syntax.
 */
+
+
+
+const orders = [
+  { name: "margarita", ovenTime: 5400 },
+  { name: "diabola", ovenTime: 3200 },
+  { name: "peperoni", ovenTime: 2500 },
+];
+
+function idealKitchen(orders) {
+
+  // function pizzaCooking(pizza) {
+  //   return new Promise(resolve => setTimeout(() => resolve(`${pizza.name} is done`), pizza.ovenTime));
+  // }
+
+  //можно втулить готовую функцию pizzaCooking(pizza) в orders.map()
+  let oven = orders.map(pizza => new Promise(resolve => setTimeout(() => resolve(`${pizza.name} is done`), pizza.ovenTime)));
+  
+  return Promise.all(oven);
+}
+
+// should resolve in 5.4s, because all pizzas bakes in parallel, and time shouldn't add up
+// oven1: margarita ======> 5.4
+// oven2: diabola   ===> 3.2
+// oven3: peperoni  ==> 2.5
+idealKitchen(orders).then((messages) => console.log(messages)); // ['margarita is done', 'diabola is done', 'peperoni is done']
+
+//проверка времени асинхронности
+console.time('idealKitchen');
+idealKitchen(orders).then(() => {console.timeEnd('idealKitchen')})
