@@ -392,20 +392,22 @@ function World() {
   this.countPopulation = () => {
   	const hashTable = {};
     
-    this.species.forEach(specie => {
+    this.creatures.forEach(creatures => {
     
-      const currentSpecielCount = hashTable[specie] || 0;
-      const specieCount = currentSpecielCount + 1;
+      const currentSpecieCount = hashTable[creatures.specie] || 0;
+      const specieCount = currentSpecieCount + 1;
       
-      hashTable[specie] = specieCount;
+      hashTable[creatures.specie] = specieCount;
     })
 
     return hashTable;
   };
   
   this.create = (obj) => {
-  	this.creatures.push(obj);
-    this.species.push(obj.specie);
+    this.creatures.push(obj);
+    if (!this.species.includes(obj.specie)) {
+      this.species.push(obj.specie);
+    }
   };
   
 }
@@ -442,6 +444,132 @@ console.log(home.countPopulation()); // { "homo sapiens": 1, bird: 2 }
 
 
 
+
+/*Task-l2-Aggregation-#6
+Create a function aggregate that extends data in array of objects by ids.
+*/
+
+/*
+const users = [
+  {
+    id: '8o71g807b09hvd09h1',
+    firstName: 'John',
+    lastName: 'Smith'
+  },
+  {
+    id: '9we8rn4e98161684s9',
+    firstName: 'Marcus',
+    lastName: 'Davis'
+  },
+  {
+    id: '78y78t4ygd984y5c16',
+    firstName: 'Anna',
+    lastName: 'Rogers'
+  }
+];
+
+const banks = [
+  {
+    id: '8s7b4s87d4s7e7ee',
+    name: 'PrivatBank',
+    country: 'Ukraine'
+  },
+  {
+    id: 'df87ndre78r7ee13',
+    name: 'UniversalBank',
+    country: 'Ukraine'
+  },
+  {
+    id: '28741hfhdfddsaaa',
+    name: 'Revolut',
+    country: 'UK'
+  },
+];
+
+const currencies = [
+  {
+    id: '127122v2',
+    short: 'UAH',
+    full: 'Ukrainian Hryvnya'
+  },
+  {
+    id: '914184g4',
+    short: 'USD',
+    full: 'United States Dollar'
+  },
+  {
+    id: '1981vgd4',
+    short: 'EUR',
+    full: 'Euro'
+  },
+];
+
+const payments = [
+  {
+    id: 1,
+    sender: {
+      userId: '8o71g807b09hvd09h1',
+      bankId: 'df87ndre78r7ee13',
+      currencyId: '1981vgd4'
+    },
+    receiver: {
+      userId: '9we8rn4e98161684s9',
+      bankId: '8s7b4s87d4s7e7ee',
+      currencyId: '127122v2'
+    }
+  },
+  {
+    id: 2,
+    sender: {
+      userId: '78y78t4ygd984y5c16',
+      bankId: '28741hfhdfddsaaa',
+      currencyId: '127122v2'
+    },
+    receiver: {
+      userId: '9we8rn4e98161684s9',
+      bankId: '28741hfhdfddsaaa',
+      currencyId: '127122v2'
+    }
+  },
+]
+
+// 1й вариант
+// function aggregate(payments, users, banks, currencies) {
+  
+//   payments.forEach(element => {
+//     element.sender.userData = users.find(prop => prop.id == element.sender.userId)
+//     element.sender.bankData = banks.find(prop => prop.id == element.sender.bankId)
+//     element.sender.currencyData = currencies.find(prop => prop.id == element.sender.currencyId)
+
+//     element.receiver.userData = users.find(prop => prop.id == element.receiver.userId)
+//     element.receiver.bankData = banks.find(prop => prop.id == element.receiver.bankId)
+//     element.receiver.currencyData = currencies.find(prop => prop.id == element.receiver.currencyId)
+//   });
+  
+//   return payments
+// }
+
+// console.log(aggregate(payments, users, banks, currencies)); // should return array of payments objects with extended data from related arrays
+
+
+// 2й вариант
+// function aggregate(payments, users, banks, currencies) {
+  
+
+
+
+  
+//   return payments
+// }
+
+// console.log(aggregate(payments, users, banks, currencies)); // should return array of payments objects with extended data from related arrays
+*/
+
+
+
+
+
+
 /*Task-l3-Pizzeria-#1
 Create pizzaCooking async function, that will receive two arguments: "pizzaName" - name of pizza and "ovenTime" number of milliseconds that need to bake a pizza. Function should wait for "ovenTime" milliseconds to resolve. Use only Promise API, without async/await syntax.
 */
@@ -457,4 +585,13 @@ pizzaCooking("diabola", 3200).then((message) => console.log(message)); // (shoul
 //проверка времени асинхронности
 console.time('pizzaCooking');
 pizzaCooking("diabola", 3200).then(() => {console.timeEnd('pizzaCooking')})
+*/
+
+
+
+
+
+
+/*Task-l3-Pizzeria-#2
+Create idealKitchen async function, that will receive one argument with array of pizza orders, and using pizzaCooking function from previous step for baking pizzas from order. For this task you have unlimited ovens, that means infinite count of pizzas can be baked in parallel. The idealKitchen function should resolve when all pizzas is done, and should return array of messages "PIZZA_NAME is done". Use only Promise API, without async/await syntax.
 */
