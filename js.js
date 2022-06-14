@@ -376,6 +376,7 @@ function World() {
   };
   this.species = [];
   this.creatures = [];
+
   this.countPopulation = () => {
   	const hashTable = {};
     
@@ -518,23 +519,23 @@ const payments = [
   },
 ]
 
-// 1й вариант
-// function aggregate(payments, users, banks, currencies) {
+1й вариант
+function aggregate(payments, users, banks, currencies) {
   
-//   payments.forEach(element => {
-//     element.sender.userData = users.find(prop => prop.id == element.sender.userId)
-//     element.sender.bankData = banks.find(prop => prop.id == element.sender.bankId)
-//     element.sender.currencyData = currencies.find(prop => prop.id == element.sender.currencyId)
+  payments.forEach(element => {
+    element.sender.userData = users.find(prop => prop.id == element.sender.userId)
+    element.sender.bankData = banks.find(prop => prop.id == element.sender.bankId)
+    element.sender.currencyData = currencies.find(prop => prop.id == element.sender.currencyId)
 
-//     element.receiver.userData = users.find(prop => prop.id == element.receiver.userId)
-//     element.receiver.bankData = banks.find(prop => prop.id == element.receiver.bankId)
-//     element.receiver.currencyData = currencies.find(prop => prop.id == element.receiver.currencyId)
-//   });
+    element.receiver.userData = users.find(prop => prop.id == element.receiver.userId)
+    element.receiver.bankData = banks.find(prop => prop.id == element.receiver.bankId)
+    element.receiver.currencyData = currencies.find(prop => prop.id == element.receiver.currencyId)
+  });
   
-//   return payments
-// }
+  return payments
+}
 
-// console.log(aggregate(payments, users, banks, currencies)); // should return array of payments objects with extended data from related arrays
+console.log(aggregate(payments, users, banks, currencies)); // should return array of payments objects with extended data from related arrays
 
 
 // 2й вариант
@@ -542,9 +543,6 @@ const payments = [
   
 
 
-
-  
-//   return payments
 // }
 
 // console.log(aggregate(payments, users, banks, currencies)); // should return array of payments objects with extended data from related arrays
@@ -611,7 +609,7 @@ idealKitchen(orders).then(() => {console.timeEnd('idealKitchen')})
 
 //Task-l3-Pizzeria-#3
 //As you know, nothing is ideal, so let's create realKitchen async function. It should do the same thing as idealKitchen, like receiving orders, and resolve when all pizzas is done, but with one limitation. Second argument "ovensCount" will say how much pizzas can bake at time. Imagine it as a real kitchen with real ovens. For example, you have 10 orders and 2 ovens, so it means that you can break orders between ovens to bake all orders faster. For this task feel free to use async/await instead of pure Promise API.
-/**/
+/*
 const orders = [
   { name: "margarita", ovenTime: 5400 },
   { name: "bbq", ovenTime: 1800 },
@@ -670,6 +668,80 @@ console.time('realKitchen');
 realKitchen(orders, 5)
 .then((messages) => console.log(messages))
 .then(() => { console.timeEnd('realKitchen') });
+*/
+
+
+
+
+//Task-l3-Pizzeria-#4
+//Try to improve realKitchen function with smarter algorithm, that baking order in fastest way. Let's call this function chiefKitchen. Tip: think how to split orders between ovens to have a balance. For this task feel free to use async/await instead of pure Promise API.
+/**/
+const orders = [
+  { name: "margarita1", ovenTime: 5400 },
+  { name: "bbq1", ovenTime: 1800 },
+  { name: "bbq2", ovenTime: 1800 },
+  { name: "margarita2", ovenTime: 5400 },
+  { name: "diabola1", ovenTime: 3200 },
+  { name: "peperoni1", ovenTime: 2500 },
+  { name: "margarita3", ovenTime: 5400 },
+  { name: "hawaiian1", ovenTime: 2000 },
+  { name: "bbq3", ovenTime: 1800 },
+  { name: "seafood1", ovenTime: 2100 },
+  { name: "peperoni2", ovenTime: 2500 },
+];
+
+
+async function chiefKitchen(ordersList, ovensNumber) {
+
+  function pizzaCooking(pizza) {
+    return new Promise(resolve => setTimeout(() => resolve(`${pizza.name} is done`), pizza.ovenTime));
+  }
+
+  // создание массива с подмассивами для каждой печи
+  const arrToMap = []
+  ordersList.sort((a, b) => a.ovenTime - b.ovenTime)
+
+  for (let i = ovensNumber; i >= 1; i--) {
+    const amountPizza = Math.floor((ordersList.length) / i);
+    const subArr = [];
+
+    for (let j = 0; j < amountPizza; j++) {
+
+      if (j % 2 === 0) {
+        subArr.push(ordersList[0]);
+        ordersList.shift();
+      } else {
+        subArr.push(ordersList[ordersList.length - 1]);
+        ordersList.pop();
+      }
+    }
+    arrToMap.push(subArr);
+  }
+
+
+  async function oneByOne1(arr) {
+    const ordersPromisesArr = [];
+
+    for (let item of arr) {
+      const promis = await pizzaCooking(item);
+      ordersPromisesArr.push(promis);
+    }
+
+    return ordersPromisesArr;
+  }
+
+  const subProcesses = arrToMap.map(async item => await oneByOne1(item));
+
+  const subResults = await Promise.all(subProcesses);
+
+  return subResults.flat();
+}
+
+console.time('chiefKitchen');
+// should resolve in max 16.9s whith 2 ovens (((
+chiefKitchen(orders, 2)
+.then((messages) => console.log(messages)) // ['margarita is done', ...]
+.then(() => { console.timeEnd('chiefKitchen') });
 
 
 
